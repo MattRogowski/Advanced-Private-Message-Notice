@@ -85,12 +85,13 @@ function advancedpmnotice_activate()
 		"title" => "advancedpmnotice",
 		"template" => "<table border=\"0\" cellspacing=\"{\$theme['borderwidth']}\" cellpadding=\"{\$theme['tablespace']}\" class=\"tborder\">
 	<tr>
-		<td class=\"thead\" colspan=\"3\"><a href=\"{\$mybb->settings['bburl']}/private.php\"><strong>{\$lang->advancedpmnotice_header}</strong></a></td>
+		<td class=\"thead\" colspan=\"4\"><a href=\"{\$mybb->settings['bburl']}/private.php\"><strong>{\$lang->advancedpmnotice_header}</strong></a></td>
 	</tr>
 	<tr>
-		<td class=\"tcat\" width=\"60%\" align=\"left\">{\$lang->advancedpmnotice_subject}</td>
-		<td class=\"tcat\" width=\"20%\" align=\"center\">{\$lang->advancedpmnotice_from}</td>
-		<td class=\"tcat\" width=\"20%\" align=\"center\">{\$lang->advancedpmnotice_date}</td>
+		<td class=\"tcat\" width=\"20%\" align=\"left\">{\$lang->advancedpmnotice_subject}</td>
+		<td class=\"tcat\" width=\"50%\" align=\"left\">{\$lang->advancedpmnotice_message}</td>
+		<td class=\"tcat\" width=\"15%\" align=\"center\">{\$lang->advancedpmnotice_from}</td>
+		<td class=\"tcat\" width=\"15%\" align=\"center\">{\$lang->advancedpmnotice_date}</td>
 	</tr>
 	{\$advancedpmnotice_unread_pms}
 	{\$advancedpmnotice_footer}
@@ -100,15 +101,16 @@ function advancedpmnotice_activate()
 	$templates[] = array(
 		"title" => "advancedpmnotice_pm",
 		"template" => "<tr>
-	<td class=\"trow1\" width=\"60%\" align=\"left\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=read&pmid={\$pmid}\"><strong>{\$subject}</strong></a></td>
-	<td class=\"trow2\" width=\"20%\" align=\"center\">{\$from}</td>
-	<td class=\"trow1\" width=\"20%\" align=\"center\">{\$date}</td>
+	<td class=\"trow1\" width=\"20%\" align=\"left\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=read&pmid={\$pmid}\"><strong>{\$subject}</strong></a></td>
+	<td class=\"trow1\" width=\"50%\" align=\"left\">{\$message}</td>
+	<td class=\"trow2\" width=\"15%\" align=\"center\">{\$from}</td>
+	<td class=\"trow1\" width=\"15%\" align=\"center\">{\$date}</td>
 </tr>"
 	);
 	$templates[] = array(
 		"title" => "advancedpmnotice_footer",
 		"template" => "<tr>
-	<td class=\"tfoot\" colspan=\"3\" align=\"right\"><a href=\"{\$mybb->settings['bburl']}/private.php\">{\$lang->advancedpmnotice_view_all}</a></td>
+	<td class=\"tfoot\" colspan=\"4\" align=\"right\"><a href=\"{\$mybb->settings['bburl']}/private.php\">{\$lang->advancedpmnotice_view_all}</a></td>
 </tr>"
 	);
 	
@@ -173,7 +175,7 @@ function advancedpmnotice()
 	}
 
 	$query = $db->query("
-		SELECT pm.subject, pm.pmid,pm.dateline, fu.username AS fromusername, fu.uid AS fromuid, fu.usergroup as fromusergroup, fu.displaygroup as fromdisplaygroup
+		SELECT pm.subject, pm.message, pm.pmid,pm.dateline, fu.username AS fromusername, fu.uid AS fromuid, fu.usergroup as fromusergroup, fu.displaygroup as fromdisplaygroup
 		FROM ".TABLE_PREFIX."privatemessages pm
 		LEFT JOIN ".TABLE_PREFIX."users fu on (fu.uid=pm.fromid)
 		WHERE pm.folder = '1' AND pm.uid = '{$mybb->user['uid']}' AND pm.status = '0'
@@ -199,6 +201,13 @@ function advancedpmnotice()
 		$pmid = $pm['pmid'];
 
 		$subject = htmlspecialchars_uni($parser->parse_badwords($pm['subject']));
+		$message = $parser->text_parse_message($pm['message'], array('filter_badwords' => true));
+		if(str_word_count($message, 0) > 20)
+		{
+			$words = str_word_count($message, 2);
+			$pos = array_keys($words);
+			$message = trim(substr($message, 0, $pos[20])).'...';
+		}
 
 		if($pm['fromuid'] == 0)
 		{
