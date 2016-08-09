@@ -173,7 +173,7 @@ function advancedpmnotice()
 	}
 
 	$query = $db->query("
-		SELECT pm.subject, pm.pmid, fu.username AS fromusername, fu.uid AS fromuid, fu.usergroup as fromusergroup, fu.displaygroup as fromdisplaygroup
+		SELECT pm.subject, pm.pmid,pm.dateline, fu.username AS fromusername, fu.uid AS fromuid, fu.usergroup as fromusergroup, fu.displaygroup as fromdisplaygroup
 		FROM ".TABLE_PREFIX."privatemessages pm
 		LEFT JOIN ".TABLE_PREFIX."users fu on (fu.uid=pm.fromid)
 		WHERE pm.folder = '1' AND pm.uid = '{$mybb->user['uid']}' AND pm.status = '0'
@@ -209,7 +209,7 @@ function advancedpmnotice()
 			$from = build_profile_link(format_name($pm['fromusername'], $pm['fromusergroup'], $pm['fromdisplaygroup']), $pm['fromuid']);
 		}
 
-		$date = my_date('relative', $message['dateline']);
+		$date = my_date('relative', $pm['dateline']);
 
 		eval("\$advancedpmnotice_unread_pms .= \"".$templates->get('advancedpmnotice_pm')."\";");
 	}
