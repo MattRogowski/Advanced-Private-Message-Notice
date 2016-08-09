@@ -1,6 +1,6 @@
 <?php
 /**
- * Private Messages on Index 0.1 - Language File
+ * Advanced Private Message Notice 0.1 - Language File
 
  * Copyright 2016 Matthew Rogowski
 
@@ -17,8 +17,8 @@
  * limitations under the License.
 **/
 
-$l['pmsonindex_header'] = 'Unread Private Messages';
-$l['pmsonindex_subject'] = 'Subject';
-$l['pmsonindex_from'] = 'From';
-$l['pmsonindex_date'] = 'Date';
-$l['pmsonindex_view_all'] = 'View all {1} unread private messages';
+$l['advancedpmnotice_header'] = 'Unread Private Messages';
+$l['advancedpmnotice_subject'] = 'Subject';
+$l['advancedpmnotice_from'] = 'From';
+$l['advancedpmnotice_date'] = 'Date';
+$l['advancedpmnotice_view_all'] = 'View all {1} unread private messages';

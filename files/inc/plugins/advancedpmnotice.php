@@ -1,6 +1,6 @@
 <?php
 /**
- * Private Messages on Index 0.1
+ * Advanced Private Message Notice 0.1
 
  * Copyright 2016 Matthew Rogowski
 
@@ -22,14 +22,14 @@ if(!defined("IN_MYBB"))
 	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
 }
 
-$plugins->add_hook('global_end', 'pmsonindex');
+$plugins->add_hook('global_end', 'advancedpmnotice');
 
-function pmsonindex_info()
+function advancedpmnotice_info()
 {
 	return array(
-		"name" => "Private Messages on Index",
-		"description" => "Display recent unread private messages on the forum index",
-		"website" => "https://github.com/MattRogowski/Private-Messages-on-Index",
+		"name" => "Advanced Private Message Notice",
+		"description" => "An advanced unread private message notice in the header",
+		"website" => "https://github.com/MattRogowski/Advanced-Private-Message-Notice",
 		"author" => "Matt Rogowski",
 		"authorsite" => "https://matt.rogow.ski",
 		"version" => "0.1",
@@ -38,16 +38,16 @@ function pmsonindex_info()
 	);
 }
 
-function pmsonindex_activate()
+function advancedpmnotice_activate()
 {
 	global $db;
 
-	pmsonindex_deactivate();
+	advancedpmnotice_deactivate();
 
 	$settings_group = array(
-		"name" => "pmsonindex",
-		"title" => "Private Messages on Index Settings",
-		"description" => "Settings for the Private Messages on Index plugin.",
+		"name" => "advancedpmnotice",
+		"title" => "Advanced Private Message Notice Settings",
+		"description" => "Settings for the Advanced Private Message Notice plugin.",
 		"disporder" => "28",
 		"isdefault" => 0
 	);
@@ -56,7 +56,7 @@ function pmsonindex_activate()
 	
 	$settings = array();
 	$settings[] = array(
-		"name" => "pmsonindex_count",
+		"name" => "advancedpmnotice_count",
 		"title" => "Number of PMs to show",
 		"description" => "If there are more unread PMs than this setting, a link to view all will be shown",
 		"optionscode" => "text",
@@ -82,23 +82,23 @@ function pmsonindex_activate()
 
 	$templates = array();
 	$templates[] = array(
-		"title" => "pmsonindex",
+		"title" => "advancedpmnotice",
 		"template" => "<table border=\"0\" cellspacing=\"{\$theme['borderwidth']}\" cellpadding=\"{\$theme['tablespace']}\" class=\"tborder\">
 	<tr>
-		<td class=\"thead\" colspan=\"3\"><strong>{\$lang->pmsonindex_header}</strong></td>
+		<td class=\"thead\" colspan=\"3\"><strong>{\$lang->advancedpmnotice_header}</strong></td>
 	</tr>
 	<tr>
-		<td class=\"tcat\" width=\"60%\" align=\"left\">{\$lang->pmsonindex_subject}</td>
-		<td class=\"tcat\" width=\"20%\" align=\"center\">{\$lang->pmsonindex_from}</td>
-		<td class=\"tcat\" width=\"20%\" align=\"center\">{\$lang->pmsonindex_date}</td>
+		<td class=\"tcat\" width=\"60%\" align=\"left\">{\$lang->advancedpmnotice_subject}</td>
+		<td class=\"tcat\" width=\"20%\" align=\"center\">{\$lang->advancedpmnotice_from}</td>
+		<td class=\"tcat\" width=\"20%\" align=\"center\">{\$lang->advancedpmnotice_date}</td>
 	</tr>
-	{\$pmsonindex_unread_pms}
-	{\$pmsonindex_footer}
+	{\$advancedpmnotice_unread_pms}
+	{\$advancedpmnotice_footer}
 </table>
 <br />"
 	);
 	$templates[] = array(
-		"title" => "pmsonindex_pm",
+		"title" => "advancedpmnotice_pm",
 		"template" => "<tr>
 	<td class=\"trow1\" width=\"60%\" align=\"left\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=read&pmid={\$pmid}\"><strong>{\$subject}</strong></a></td>
 	<td class=\"trow2\" width=\"20%\" align=\"center\">{\$from}</td>
@@ -106,9 +106,9 @@ function pmsonindex_activate()
 </tr>"
 	);
 	$templates[] = array(
-		"title" => "pmsonindex_footer",
+		"title" => "advancedpmnotice_footer",
 		"template" => "<tr>
-	<td class=\"tfoot\" colspan=\"3\" align=\"right\"><a href=\"{\$mybb->settings['bburl']}/private.php\">{\$lang->pmsonindex_view_all}</a></td>
+	<td class=\"tfoot\" colspan=\"3\" align=\"right\"><a href=\"{\$mybb->settings['bburl']}/private.php\">{\$lang->advancedpmnotice_view_all}</a></td>
 </tr>"
 	);
 	
@@ -127,33 +127,38 @@ function pmsonindex_activate()
 	}
 }
 
-function pmsonindex_deactivate()
+function advancedpmnotice_deactivate()
 {
 	global $db;
 
-	$db->delete_query("settinggroups", "name = 'pmsonindex'");
+	$db->delete_query("settinggroups", "name = 'advancedpmnotice'");
 	
 	$settings = array(
-		"pmsonindex_count"
+		"advancedpmnotice_count"
 	);
 	$settings = "'" . implode("','", $settings) . "'";
 	$db->delete_query("settings", "name IN ({$settings})");
 	
 	rebuild_settings();
 
-	$db->delete_query("templates", "title IN ('pmsonindex','pmsonindex_pm','pmsonindex_footer')");
+	$db->delete_query("templates", "title IN ('advancedpmnotice','advancedpmnotice_pm','advancedpmnotice_footer')");
 }
 
-function pmsonindex()
+function advancedpmnotice()
 {
 	global $mybb, $db, $lang, $templates, $theme, $parser, $header, $pm_notice;
 
-	if(THIS_SCRIPT != 'index.php')
+	if($pm_notice == '')
 	{
 		return;
 	}
+	elseif($pm_notice && THIS_SCRIPT == 'private.php')
+	{
+		$header = str_replace($pm_notice, $advancedpmnotice, $header);
+		return;
+	}
 
-	$lang->load('pmsonindex');
+	$lang->load('advancedpmnotice');
 
 	if(!$parser)
 	{
@@ -161,7 +166,7 @@ function pmsonindex()
 		$parser = new postParser;
 	}
 
-	$limit = $mybb->settings['pmsonindex_count'];
+	$limit = $mybb->settings['advancedpmnotice_count'];
 	if(!is_numeric($limit) || $limit <= 0)
 	{
 		$limit = 3;
@@ -181,7 +186,7 @@ function pmsonindex()
 		$pms[] = $pm;
 	}
 
-	$pmsonindex_unread_pms = '';
+	$advancedpmnotice_unread_pms = '';
 	for($i = 0; $i < $limit; $i++)
 	{
 		$pm = $pms[$i];
@@ -206,17 +211,17 @@ function pmsonindex()
 
 		$date = my_date('relative', $message['dateline']);
 
-		eval("\$pmsonindex_unread_pms .= \"".$templates->get('pmsonindex_pm')."\";");
+		eval("\$advancedpmnotice_unread_pms .= \"".$templates->get('advancedpmnotice_pm')."\";");
 	}
 
 	if(count($pms) > $limit)
 	{
-		$lang->pmsonindex_view_all = $lang->sprintf($lang->pmsonindex_view_all, count($pms));
-		eval("\$pmsonindex_footer = \"".$templates->get('pmsonindex_footer')."\";");
+		$lang->advancedpmnotice_view_all = $lang->sprintf($lang->advancedpmnotice_view_all, count($pms));
+		eval("\$advancedpmnotice_footer = \"".$templates->get('advancedpmnotice_footer')."\";");
 	}
 
-	eval("\$pmsonindex = \"".$templates->get('pmsonindex')."\";");
+	eval("\$advancedpmnotice = \"".$templates->get('advancedpmnotice')."\";");
 
-	$header = str_replace($pm_notice, $pmsonindex, $header);
+	$header = str_replace($pm_notice, $advancedpmnotice, $header);
 }
 ?>
