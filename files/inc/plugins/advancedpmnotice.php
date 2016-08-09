@@ -85,7 +85,7 @@ function advancedpmnotice_activate()
 		"title" => "advancedpmnotice",
 		"template" => "<table border=\"0\" cellspacing=\"{\$theme['borderwidth']}\" cellpadding=\"{\$theme['tablespace']}\" class=\"tborder\">
 	<tr>
-		<td class=\"thead\" colspan=\"3\"><strong>{\$lang->advancedpmnotice_header}</strong></td>
+		<td class=\"thead\" colspan=\"3\"><a href=\"{\$mybb->settings['bburl']}/private.php\"><strong>{\$lang->advancedpmnotice_header}</strong></a></td>
 	</tr>
 	<tr>
 		<td class=\"tcat\" width=\"60%\" align=\"left\">{\$lang->advancedpmnotice_subject}</td>
