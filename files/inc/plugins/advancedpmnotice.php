@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced Private Message Notice 0.1
+ * Advanced Private Message Notice 0.0.1
 
  * Copyright 2016 Matthew Rogowski
 
@@ -32,9 +32,9 @@ function advancedpmnotice_info()
 		"website" => "https://github.com/MattRogowski/Advanced-Private-Message-Notice",
 		"author" => "Matt Rogowski",
 		"authorsite" => "https://matt.rogow.ski",
-		"version" => "0.1",
+		"version" => "0.0.1",
 		"compatibility" => "18*",
-		"guid" => ""
+		"codename" => "advancedpmnotice"
 	);
 }
 
@@ -156,7 +156,7 @@ function advancedpmnotice()
 	}
 	elseif($pm_notice && THIS_SCRIPT == 'private.php')
 	{
-		$header = str_replace($pm_notice, $advancedpmnotice, $header);
+		$header = str_replace($pm_notice, '', $header);
 		return;
 	}
 
