@@ -11,7 +11,7 @@ Template changes: 0
 Settings added: 1
 
 Information:
-This plugin replaces the defualt unread private message notice with a table showing your recent private messages, who they are from, and a preview of the message.
+This plugin replaces the default unread private message notice with a table showing your recent private messages, who they are from, and a preview of the message.
 
 To Install:
 Upload ./inc/plugins/advancedpmnotice.php to ./inc/plugins/
