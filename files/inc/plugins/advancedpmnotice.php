@@ -85,13 +85,14 @@ function advancedpmnotice_activate()
 		"title" => "advancedpmnotice",
 		"template" => "<table border=\"0\" cellspacing=\"{\$theme['borderwidth']}\" cellpadding=\"{\$theme['tablespace']}\" class=\"tborder\">
 	<tr>
-		<td class=\"thead\" colspan=\"4\"><a href=\"{\$mybb->settings['bburl']}/private.php\"><strong>{\$lang->advancedpmnotice_header}</strong></a></td>
+		<td class=\"thead\" colspan=\"5\"><a href=\"{\$mybb->settings['bburl']}/private.php\"><strong>{\$lang->advancedpmnotice_header}</strong></a></td>
 	</tr>
 	<tr>
 		<td class=\"tcat\" width=\"20%\" align=\"left\">{\$lang->advancedpmnotice_subject}</td>
 		<td class=\"tcat\" width=\"50%\" align=\"left\">{\$lang->advancedpmnotice_message}</td>
-		<td class=\"tcat\" width=\"15%\" align=\"center\">{\$lang->advancedpmnotice_from}</td>
+		<td class=\"tcat\" width=\"10%\" align=\"center\">{\$lang->advancedpmnotice_from}</td>
 		<td class=\"tcat\" width=\"15%\" align=\"center\">{\$lang->advancedpmnotice_date}</td>
+		<td class=\"tcat\" width=\"5%\" align=\"center\">{\$lang->advancedpmnotice_controls}</td>
 	</tr>
 	{\$advancedpmnotice_unread_pms}
 	{\$advancedpmnotice_footer}
@@ -103,14 +104,15 @@ function advancedpmnotice_activate()
 		"template" => "<tr>
 	<td class=\"trow1\" width=\"20%\" align=\"left\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=read&pmid={\$pmid}\"><strong>{\$subject}</strong></a></td>
 	<td class=\"trow1\" width=\"50%\" align=\"left\">{\$message}</td>
-	<td class=\"trow2\" width=\"15%\" align=\"center\">{\$from}</td>
+	<td class=\"trow2\" width=\"10%\" align=\"center\">{\$from}</td>
 	<td class=\"trow1\" width=\"15%\" align=\"center\">{\$date}</td>
+	<td class=\"trow1\" width=\"5%\" align=\"center\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=send&pmid={\$pmid}&do=reply\">{\$lang->advancedpmnotice_reply}</a></td>
 </tr>"
 	);
 	$templates[] = array(
 		"title" => "advancedpmnotice_footer",
 		"template" => "<tr>
-	<td class=\"tfoot\" colspan=\"4\" align=\"right\"><a href=\"{\$mybb->settings['bburl']}/private.php\">{\$lang->advancedpmnotice_view_all}</a></td>
+	<td class=\"tfoot\" colspan=\"5\" align=\"right\"><a href=\"{\$mybb->settings['bburl']}/private.php\">{\$lang->advancedpmnotice_view_all}</a></td>
 </tr>"
 	);
 	

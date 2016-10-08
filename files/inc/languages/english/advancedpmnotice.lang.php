@@ -22,4 +22,6 @@ $l['advancedpmnotice_subject'] = 'Subject';
 $l['advancedpmnotice_message'] = 'Message';
 $l['advancedpmnotice_from'] = 'From';
 $l['advancedpmnotice_date'] = 'Date';
+$l['advancedpmnotice_controls'] = 'Controls';
+$l['advancedpmnotice_reply'] = 'Reply';
 $l['advancedpmnotice_view_all'] = 'View all {1} unread private messages';
