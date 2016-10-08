@@ -3,7 +3,7 @@ Description: An advanced unread private message notice in the header
 Website: https://github.com/MattRogowski/Advanced-Private-Message-Notice
 Author: Matt Rogowski
 Authorsite: https://matt.rogow.ski
-Version: 0.0.1
+Version: 1.0.0
 Compatibility: 1.8.x
 Files: 2
 Templates added: 3
@@ -19,7 +19,8 @@ Upload ./inc/languages/english/advancedpmnotice.lang.php to ./inc/languages/engl
 Go to ACP > Plugins > Activate
 
 Change Log:
-28/11/16 - v0.0.1 -> Initial 'beta' release.
+28/09/16 - v0.0.1 -> Initial 'beta' release.
+08/10/16 - v0.0.1 -> v1.0.0 -> Adds a reply link into the notice. To upgrade, deactivate, reupload ./inc/plugins/advancedpmnotice.php, activate.
 
 Copyright 2016 Matthew Rogowski
 

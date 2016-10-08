@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced Private Message Notice 0.0.1
+ * Advanced Private Message Notice 1.0.0
 
  * Copyright 2016 Matthew Rogowski
 
@@ -32,7 +32,7 @@ function advancedpmnotice_info()
 		"website" => "https://github.com/MattRogowski/Advanced-Private-Message-Notice",
 		"author" => "Matt Rogowski",
 		"authorsite" => "https://matt.rogow.ski",
-		"version" => "0.0.1",
+		"version" => "1.0.0",
 		"compatibility" => "18*",
 		"codename" => "advancedpmnotice"
 	);
