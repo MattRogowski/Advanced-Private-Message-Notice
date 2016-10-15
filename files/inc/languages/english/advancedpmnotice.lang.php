@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced Private Message Notice 1.0.0 - Language File
+ * Advanced Private Message Notice 1.0.1 - Language File
 
  * Copyright 2016 Matthew Rogowski
 

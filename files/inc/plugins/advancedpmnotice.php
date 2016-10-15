@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced Private Message Notice 1.0.0
+ * Advanced Private Message Notice 1.0.1
 
  * Copyright 2016 Matthew Rogowski
 
@@ -32,7 +32,7 @@ function advancedpmnotice_info()
 		"website" => "https://github.com/MattRogowski/Advanced-Private-Message-Notice",
 		"author" => "Matt Rogowski",
 		"authorsite" => "https://matt.rogow.ski",
-		"version" => "1.0.0",
+		"version" => "1.0.1",
 		"compatibility" => "18*",
 		"codename" => "advancedpmnotice"
 	);
@@ -102,11 +102,11 @@ function advancedpmnotice_activate()
 	$templates[] = array(
 		"title" => "advancedpmnotice_pm",
 		"template" => "<tr>
-	<td class=\"trow1\" width=\"20%\" align=\"left\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=read&pmid={\$pmid}\"><strong>{\$subject}</strong></a></td>
+	<td class=\"trow1\" width=\"20%\" align=\"left\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=read&amp;pmid={\$pmid}\"><strong>{\$subject}</strong></a></td>
 	<td class=\"trow1\" width=\"50%\" align=\"left\">{\$message}</td>
 	<td class=\"trow2\" width=\"10%\" align=\"center\">{\$from}</td>
 	<td class=\"trow1\" width=\"15%\" align=\"center\">{\$date}</td>
-	<td class=\"trow1\" width=\"5%\" align=\"center\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=send&pmid={\$pmid}&do=reply\">{\$lang->advancedpmnotice_reply}</a></td>
+	<td class=\"trow1 postbit_buttons\" width=\"5%\" align=\"center\"><a href=\"{\$mybb->settings['bburl']}/private.php?action=send&amp;pmid={\$pmid}&amp;do=reply\" title=\"{\$lang->reply_title}\" class=\"postbit_reply_pm\"><span>{\$lang->advancedpmnotice_reply}</span></a></td>
 </tr>"
 	);
 	$templates[] = array(
