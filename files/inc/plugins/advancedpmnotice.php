@@ -1,8 +1,8 @@
 <?php
 /**
- * Advanced Private Message Notice 1.0.1
+ * Advanced Private Message Notice 1.0.2
 
- * Copyright 2016 Matthew Rogowski
+ * Copyright 2017 Matthew Rogowski
 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,14 @@ if(!defined("IN_MYBB"))
 
 $plugins->add_hook('global_end', 'advancedpmnotice');
 
+global $templatelist;
+
+if($templatelist)
+{
+	$templatelist .= ',';
+}
+$templatelist .= 'advancedpmnotice,advancedpmnotice_pm,advancedpmnotice_footer';
+
 function advancedpmnotice_info()
 {
 	return array(
@@ -32,7 +40,7 @@ function advancedpmnotice_info()
 		"website" => "https://github.com/MattRogowski/Advanced-Private-Message-Notice",
 		"author" => "Matt Rogowski",
 		"authorsite" => "https://matt.rogow.ski",
-		"version" => "1.0.1",
+		"version" => "1.0.2",
 		"compatibility" => "18*",
 		"codename" => "advancedpmnotice"
 	);
@@ -53,7 +61,7 @@ function advancedpmnotice_activate()
 	);
 	$db->insert_query("settinggroups", $settings_group);
 	$gid = $db->insert_id();
-	
+
 	$settings = array();
 	$settings[] = array(
 		"name" => "advancedpmnotice_count",
@@ -77,7 +85,7 @@ function advancedpmnotice_activate()
 		$db->insert_query("settings", $insert);
 		$i++;
 	}
-	
+
 	rebuild_settings();
 
 	$templates = array();
@@ -115,7 +123,7 @@ function advancedpmnotice_activate()
 	<td class=\"tfoot\" colspan=\"5\" align=\"right\"><a href=\"{\$mybb->settings['bburl']}/private.php\">{\$lang->advancedpmnotice_view_all}</a></td>
 </tr>"
 	);
-	
+
 	foreach($templates as $template)
 	{
 		$insert = array(
@@ -126,7 +134,7 @@ function advancedpmnotice_activate()
 			"status" => "",
 			"dateline" => TIME_NOW
 		);
-		
+
 		$db->insert_query("templates", $insert);
 	}
 }
@@ -136,13 +144,13 @@ function advancedpmnotice_deactivate()
 	global $db;
 
 	$db->delete_query("settinggroups", "name = 'advancedpmnotice'");
-	
+
 	$settings = array(
 		"advancedpmnotice_count"
 	);
 	$settings = "'" . implode("','", $settings) . "'";
 	$db->delete_query("settings", "name IN ({$settings})");
-	
+
 	rebuild_settings();
 
 	$db->delete_query("templates", "title IN ('advancedpmnotice','advancedpmnotice_pm','advancedpmnotice_footer')");

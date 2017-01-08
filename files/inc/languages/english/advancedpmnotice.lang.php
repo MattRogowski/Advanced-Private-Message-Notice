@@ -1,8 +1,8 @@
 <?php
 /**
- * Advanced Private Message Notice 1.0.1 - Language File
+ * Advanced Private Message Notice 1.0.2 - Language File
 
- * Copyright 2016 Matthew Rogowski
+ * Copyright 2017 Matthew Rogowski
 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
